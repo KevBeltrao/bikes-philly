@@ -66,7 +66,7 @@ export class BikesService {
     };
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     const result = await this.getBikes();
     this.clientAdminBackend.emit('get-bikes-cron', result);
