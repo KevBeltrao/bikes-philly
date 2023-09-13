@@ -8,8 +8,8 @@ import {
   Transport,
 } from '@nestjs/microservices';
 
-const breakPointCritical = 0.1;
-const breakPointWarning = 0.2;
+const breakPointCritical = 0.2;
+const breakPointWarning = 0.5;
 
 @Injectable()
 export class BikesService {
@@ -20,7 +20,7 @@ export class BikesService {
       transport: Transport.RMQ,
       options: {
         urls: [process.env.RABBITMQ_URI],
-        queue: 'bikes',
+        queue: 'bikes-cron',
       },
     });
   }
@@ -32,11 +32,14 @@ export class BikesService {
     const featuresByCapacity: GetBikesResponseDto['kiosksData'] = kiosks.reduce(
       (accumulator, current) => {
         const { properties } = current;
-        const { totalDocks, bikesAvailable } = properties;
+        const { bikes, bikesAvailable } = properties;
 
-        const bikesAvailablePercentage = bikesAvailable / totalDocks;
+        const bikesAvailablePercentage = bikesAvailable / bikes.length;
 
-        if (bikesAvailablePercentage <= breakPointCritical)
+        if (
+          bikesAvailablePercentage <= breakPointCritical ||
+          isNaN(bikesAvailablePercentage)
+        )
           return {
             ...accumulator,
             critical: [...accumulator.critical, current],

@@ -24,7 +24,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [process.env.RABBITMQ_URI],
-      queue: 'bikes',
+      queue: 'bikes-cron',
       prefetchCount: 1,
     },
   });

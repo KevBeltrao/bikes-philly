@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
 @keyframes fade-in {
@@ -33,10 +36,27 @@ html, body, #root {
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid;
+  padding: 5px;
+  margin: 0;
 
   animation: fade-in 0.5s ease-in-out;
 
   transition: transform 0.3s ease-in-out;
+}
+
+.marker:hover::after {
+  content: attr(data-name);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(10px, -10px);
+  background-color: #000;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 1;
+  white-space: nowrap;
 }
 
 .marker:hover {
@@ -56,4 +76,87 @@ html, body, #root {
 .critical {
   background-color: red;
   border-color: #6e0000;
+}
+
+@keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hideModal {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 999;
+}
+
+.modal:not(.show) {
+  animation: hideModal 0.5s ease-in-out forwards;
+}
+
+.modal.hide {
+  display: none;
+}
+
+.modal.show {
+  animation: showModal 0.5s ease-in-out forwards;
+}
+
+.modal-content {
+  background-color: #202020;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  color: #fff;
+  padding: 50px 75px;
+  border-radius: 16px;
+  text-align: left;
+  max-width: 500px;
+}
+
+.modal-content h2 {
+  text-align: center;
+}
+
+.modal-content p:first-child {
+  margin-bottom: 40px;
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  border: 0;
+  font-size: 32px;
+
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal .close:hover {
+  transform: rotate(90deg);
 }

@@ -1,16 +1,22 @@
-import { FC } from "react";
-import { BikesFeature } from "../types";
+import { FC, memo } from 'react';
+import { BikesFeature } from '../types';
+
 
 interface MarkerProps {
   bike: BikesFeature;
   status: 'available' | 'warning' | 'critical';
+  handleClick: () => void;
 }
 
-const Markers: FC<MarkerProps> = ({ bike, status }) => {
+const Markers: FC<MarkerProps> = memo(({ bike, status, handleClick }) => {
   return (
-    <div className={`marker ${status}`}>
-    </div>
+    <button
+      onClick={handleClick}
+      className={`marker ${status}`}
+      data-name={bike.properties.name}
+    >
+    </button>
   );
-};
+});
 
 export default Markers;

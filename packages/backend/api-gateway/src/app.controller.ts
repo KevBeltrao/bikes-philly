@@ -26,11 +26,14 @@ export class AppController {
 
   @Get('bikes')
   getBikes(): Observable<GetBikesDto> {
-    return this.clientAdminBackend.send('get-bikes', {});
+    return this.clientAdminBackend.send(
+      'get-bikes',
+      JSON.stringify({ data: null }),
+    );
   }
 
   @MessagePattern('get-bikes-cron')
-  async getBikesCron(@Payload() payload: GetBikesResponseDto) {
-    return this.appGateway.updateBikes(payload);
+  async getBikesCron(@Payload() data: GetBikesResponseDto) {
+    return this.appGateway.updateBikes(data);
   }
 }

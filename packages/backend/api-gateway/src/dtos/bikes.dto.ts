@@ -8,6 +8,7 @@ export interface Bike {
 export interface Kiosk {
   id: number;
   name: string;
+  bikes: Bike[];
   coordinates: [number, number];
   totalDocks: number;
   docksAvailable: number;
@@ -41,7 +42,6 @@ export class GetBikesDto {
   last_updated: string; // iso string
   features: BikesFeature[];
   properties: Kiosk;
-  bikes: Bike[];
   kioskId: number;
   latitude: number;
   longitude: number;
