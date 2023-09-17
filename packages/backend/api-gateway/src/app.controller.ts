@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import {
   ClientProxy,
   ClientProxyFactory,
-  MessagePattern,
+  EventPattern,
   Payload,
   Transport,
 } from '@nestjs/microservices';
@@ -32,7 +32,7 @@ export class AppController {
     );
   }
 
-  @MessagePattern('get-bikes-cron')
+  @EventPattern('get-bikes-cron')
   async getBikesCron(@Payload() data: GetBikesResponseDto) {
     return this.appGateway.updateBikes(data);
   }
