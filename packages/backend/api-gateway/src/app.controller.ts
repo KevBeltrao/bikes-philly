@@ -26,10 +26,7 @@ export class AppController {
 
   @Get('bikes')
   getBikes(): Observable<GetBikesDto> {
-    return this.clientAdminBackend.send(
-      'get-bikes',
-      JSON.stringify({ data: null }),
-    );
+    return this.clientAdminBackend.send('get-bikes', { data: null });
   }
 
   @EventPattern('get-bikes-cron')
